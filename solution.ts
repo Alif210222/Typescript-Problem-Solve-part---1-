@@ -1,6 +1,6 @@
 
 
-function formatValue (value : string | number| boolean) {
+function formatValue (value : string | number| boolean) : string | number | boolean {
 
     if(typeof value === "string"){
         return  value.toUpperCase();
@@ -11,6 +11,22 @@ function formatValue (value : string | number| boolean) {
     else if(typeof value === "boolean"){
         return !value;
     }
+
+    return  value;
 }
 
 
+
+
+function getLength (value : string | any[] ) : number {
+
+    if(typeof value === "string"){
+           return value.length;
+    }
+    else if (Array.isArray(value)){
+        return value.length;
+    }
+
+    return value ;
+  
+}
