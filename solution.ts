@@ -117,3 +117,36 @@ const myBook:Book = {
 };
 
 printBookDetails(myBook);
+
+
+
+
+
+function getUniqueValues<T extends string | number>(arr1: T[],arr2: T[]): T[] {
+  const newArray: T[] = [];
+
+ //* check the value exists in newArray
+  const exists = (value: T): boolean => {
+    for (let i = 0; i < newArray.length; i++) {
+      if (newArray[i] === value)  return true;
+    }
+    
+    return false;
+  };
+
+
+  for (let i = 0; i < arr1.length; i++) {
+    if (!exists(arr1[i])) {
+      newArray[newArray.length] = arr1[i];
+    }
+  }
+
+
+  for (let i = 0; i < arr2.length; i++) {
+    if (!exists(arr2[i])) {
+      newArray[newArray.length] = arr2[i];
+    }
+  }
+
+  return newArray;
+}
