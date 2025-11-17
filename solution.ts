@@ -52,12 +52,12 @@ class Person {
 
 
 
-type Book = {
+type Item = {
     title : string;
     rating : number;
 }
 
-function filterByRating(items : Book[]):Book[] {
+function filterByRating(items : Item[]):Item[] {
 
     return (items.filter( item => item.rating >= 4 ));
 }
@@ -90,3 +90,30 @@ const users = [
   { id: 3, name: 'Rumi', email: 'rumi@example.com', isActive: true },
 ];
 
+
+
+
+
+
+interface Book {
+    title : string;
+    author : string;
+    publishedYear: number;
+    isAvailable: boolean;
+}
+
+function printBookDetails (book:Book){
+         const availability = book.isAvailable ? "Yes" : "No"; 
+
+
+    console.log(`Title: ${book.title}, Author: ${book.author}, Published: ${book.publishedYear}, Available: ${availability} `);
+}
+
+const myBook:Book = {
+  title: 'The Great Gatsby',
+  author: 'F. Scott Fitzgerald',
+  publishedYear: 1925,
+  isAvailable: true,
+};
+
+printBookDetails(myBook);
