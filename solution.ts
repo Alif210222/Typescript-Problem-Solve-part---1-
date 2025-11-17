@@ -18,6 +18,7 @@ function formatValue (value : string | number| boolean) : string | number | bool
 
 
 
+
 function getLength (value : string | any[] ) : number {
 
     if(typeof value === "string"){
@@ -34,6 +35,7 @@ function getLength (value : string | any[] ) : number {
 
 
 
+
 class Person {
     name: string ;
     age : number ;
@@ -44,9 +46,11 @@ class Person {
     }
 
     getDetails() : string{
-        return `Name: ${this.name}, Age: ${this.age}`;
+        return ` 'Name: ${this.name}, Age: ${this.age}'`;
     }
 }
+
+
 
 
 
@@ -57,16 +61,18 @@ type Item = {
     rating : number;
 }
 
-function filterByRating(items : Item[]):Item[] {
+function filterByRating(items : Item[]): { title: string; rating: string }[] {
 
-    return (items.filter( item => item.rating >= 4 ));
+   const filteredItem =  items.filter(item => item.rating >= 4)
+   const singleItem =  filteredItem.map(item => ({
+      title: item.title,
+      rating: item.rating.toFixed(1), 
+    }));
+
+    return singleItem;
+
+
 }
-
-const books = [
-  { title: 'Book A', rating: 4.5 },
-  { title: 'Book B', rating: 3.2 },
-  { title: 'Book C', rating: 5.0 },
-];
 
 
 
@@ -84,11 +90,6 @@ function filterActiveUsers (array : User[]): User[] {
          return array.filter(user => user.isActive === true )
 }
 
-const users = [
-  { id: 1, name: 'Rakib', email: 'rakib@example.com', isActive: true },
-  { id: 2, name: 'Asha', email: 'asha@example.com', isActive: false },
-  { id: 3, name: 'Rumi', email: 'rumi@example.com', isActive: true },
-];
 
 
 
@@ -105,18 +106,11 @@ interface Book {
 function printBookDetails (book:Book){
          const availability = book.isAvailable ? "Yes" : "No"; 
 
-
     console.log(`Title: ${book.title}, Author: ${book.author}, Published: ${book.publishedYear}, Available: ${availability} `);
 }
 
-const myBook:Book = {
-  title: 'The Great Gatsby',
-  author: 'F. Scott Fitzgerald',
-  publishedYear: 1925,
-  isAvailable: true,
-};
 
-printBookDetails(myBook);
+
 
 
 
@@ -130,7 +124,7 @@ function getUniqueValues<T extends string | number>(arr1: T[],arr2: T[]): T[] {
     for (let i = 0; i < newArray.length; i++) {
       if (newArray[i] === value)  return true;
     }
-    
+
     return false;
   };
 
@@ -149,4 +143,32 @@ function getUniqueValues<T extends string | number>(arr1: T[],arr2: T[]): T[] {
   }
 
   return newArray;
+}
+
+
+
+
+
+
+
+type Product = {
+  name: string;
+  price: number;
+  quantity: number;
+  discount?: number; 
+};
+
+function calculateTotalPrice(products:Product[]){
+    if (products.length === 0) return 0;
+
+const totalProductPrice =  products.map((product) => {
+
+      const productPrice = product.price * product.quantity;
+
+      const discountAmount =product.discount ? (productPrice * product.discount) / 100 : 0 ;
+
+     return productPrice - discountAmount;
+    })
+
+    return totalProductPrice.reduce((sum,value) => sum + value , 0);
 }
